@@ -1,4 +1,29 @@
-format mz                
+[bits 16]
+org 0h
+host_exe_header:
+.signature1: db "MZ"     ; the 'MZ' characters                                   0x00
+
+.last_page_size: dw 1   ; number of used bytes in the final file page, 0 for all 2
+.page_count: dw 1       ; number of file pages including any last partial page   4
+.reloc: dw 0            ; number of relocation entries after the header          6
+.paragraphs: dw 0       ; size of header + relocation table, in paragraphs       8
+.minalloc: dw 0         ; minimum required additional memory, in paragraphs      a
+.maxalloc: dw 0xFFFF    ; maximum memory to be allocated, in paragraphs          c
+.in_ss: dw 0fffh           ; initial relative value of the stack segment         e
+.in_sp: dw 0xFFF0       ; initial sp value                                       10
+.checksum: dw 1         ; checksum: 1's complement of sum of all words           12
+.in_ip: dw start        ; initial ip value                                       14
+.in_cs: dw  0      ; initial relative value of the text segment                  16
+.offset: dw 0         ; offset of the relocation table from start of header      18
+.overlay: dw 0          ; overlay value (0h = main program)                      1a
+.overlay2: dw 0         ;                                                        1c
+.ovs:      dw 0         ;1e
+.ovs2:     db 0         ;1f
+section .text
+.reserv : times 200h db 0x90
+ 
+main: db 090h                
+                
 start:
 JMP MAIN                
 sourcetext dd 1
