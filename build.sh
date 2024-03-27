@@ -13,4 +13,4 @@ fasm shutdown.asm shutdown.exe
 fasm line.asm line.exe
 fasm echo.asm echo.exe
 file a.exe
-dosbox ./
+dosbox ./load.com
